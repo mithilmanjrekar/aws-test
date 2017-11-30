@@ -55,10 +55,31 @@ class S3Uploader
 	# obj.put(body: file)
   end
 
+  def actual_job
+		# Create an instance of the Aws::S3::Resource class
+		s3 = Aws::S3::Resource.new(
+			  credentials: Aws::Credentials.new(ENV["ACCESS_KEY_ID"], ENV["SECRET_ACCESS_KEY"]),
+			  region: 'us-east-1'
+			)
 
+		# Reference the target object by bucket name and key.
+		# Objects live in a bucket and have unique keys that identify the object.
+		obj = s3.bucket('your-bucket-name').object(file_name)
+		obj.upload_file(upload_file, { acl: 'public-read' })  # http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
 
-  def self.s3_solution_test
-     return s3 = Aws::S3::Resource.new(region:'us-west-2')
-  end	
+		# Returns Public URL to the file
+		obj.public_url
+
+		# obj = s3.bucket('bucket-name').object('key')
+
+		# # from a string
+		# obj.put(body:'Hello World!')
+
+		# # from an IO object
+		# File.open('/source/file', 'rb') do |file|
+		#   obj.put(body:file)
+		# end
+  end
+
   
 end
