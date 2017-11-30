@@ -1,33 +1,21 @@
 class VisitorsController < ApplicationController
 
-	def save_screenshot_to_s3(image_location, folder_name,user_id)
-		service = AWS::S3.new(:access_key_id =>  ENV["ACCESS_KEY_ID"],
-		                      :secret_access_key =>  ENV["SECRET_ACCESS_KEY"])
-		bucket_name = "app-images"
-
-		if(service.buckets.include?(ENV["S3_BUCKET"]))
-		  bucket = service.buckets[ENV["S3_BUCKET"]]
-		else
-		  bucket = service.buckets.create(ENV["S3_BUCKET"])
-		end
-
-		bucket.acl = :public_read
-		key = folder_name.to_s + "/" + File.basename(image_location)
-		s3_file = service.buckets[bucket_name].objects[key].write(:file => image_location)
-		s3_file.acl = :public_read
-		user = User.where(id: user_id).first
-		user.image = s3_file.public_url.to_s
-		user.save
-  end   
-
   def upload_image
-  puts AWS::S3.new(:access_key_id =>  ENV["ACCESS_KEY_ID"],
-		                      :secret_access_key =>  ENV["SECRET_ACCESS_KEY"])
-  # begin
-  #   image = S3Store.new(params[:upload][:image]).store
-   
-	 #  rescue Exception => e
-	   
-	 #  end
+
+	reponse_status = 200
+	response_message = "Success!"
+
+    msg = { :status => reponse_status, :message => response_message }
+    string  = S3Uploader.s3_solution_test
+
+ #    uploaded_io = params[:file]
+	# dir = Rails.root.join('public', uid)
+	# Dir.mkdir(dir) unless Dir.exist?(dir)
+	# File.open(dir.join(uploaded_io.original_filename), 'wb') do |file|
+	# 	file.write(uploaded_io.read)
+	# end
+       
+    render json: params[:file].to_s
   end 
+
 end
