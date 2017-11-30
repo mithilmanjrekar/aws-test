@@ -10,6 +10,8 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'rename'
+gem 'aws-sdk', '2.10.47'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end
