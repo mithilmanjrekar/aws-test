@@ -22,26 +22,8 @@
             };
          }]);
       
-         myApp.service('fileUpload', function ($http) {
-            this.uploadFileToUrl = function(file, uploadUrl){
-               var formData = new FormData();
-               formData.append('file', file);
-
-               console.log(JSON.stringify(formData))
-
-              $http.post(uploadUrl, { "formData" : formData}, {
-                transformRequest: angular.identity,
-                headers: { 'Content-Type': undefined }
-              })
-               .success(function(){
-               })
-            
-               .error(function(){
-               });
-            }
-         });
       
-         myApp.controller('myCtrl', ['$scope', 'fileUpload', function($scope, fileUpload){
+         myApp.controller('myCtrl', ['$scope' , '$http', function($scope , $http){
             $scope.uploadFile = function(){
                var file = $scope.myFile;
                
@@ -49,7 +31,18 @@
                console.dir(file);
                
                var uploadUrl = "/upload_image";
-               fileUpload.uploadFileToUrl(file, uploadUrl);
+
+              var fd = new FormData();
+              fd.append('file', $scope.myFile);
+
+                $http.post(uploadUrl, fd, {
+                  headers: {'Content-Type': undefined },
+                  transformRequest: angular.identity
+                })
+                .success( '...all right!...' )
+                .error( '..damn!...');
+
+               // fileUpload.uploadFileToUrl(file, uploadUrl);
             };
          }]);
       

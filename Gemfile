@@ -13,10 +13,9 @@ gem 'rename'
 gem 'aws-sdk', '~> 3'
 gem 'aws-sdk-s3', '~> 1'
 gem 'aws-sdk-ec2', '~> 1'
-gem 'pry'
-gem 'pry-remote'
-gem 'pry-stack_explorer'
-gem 'mimetype-fu'
+gem 'pry',         '~> 0.10.3'
+gem 'pry-byebug',  '~> 3.4.2'
+gem 'carrierwave-mimetype-fu'
 group :development, :test do
   gem 'byebug', platform: :mri
 end
