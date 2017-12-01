@@ -22,8 +22,7 @@
             };
          }]);
       
-      
-         myApp.controller('myCtrl', ['$scope' , '$http', function($scope , $http){
+         myApp.controller('myCtrl', ['$scope'  , '$http', function($scope  , $http){
             $scope.uploadFile = function(){
                var file = $scope.myFile;
                
@@ -39,17 +38,19 @@
                   headers: {'Content-Type': undefined },
                   transformRequest: angular.identity
                 })
-                .success( "...all right!..." )
-                .error( "..damn!...");
-
-               // fileUpload.uploadFileToUrl(file, uploadUrl);
+                .success(function(data) {
+                 alert("scessfully uploaded")
+                })
+                .error(function(data, status) {
+                 alert('Repos error', status, data) 
+                })
             };
          }]);
       
       </script>
   <div ng-app = "myApp"> 
        <div ng-controller = "myCtrl">
-         <input type = "file" file-model = "myFile"/>
-         <button ng-click = "uploadFile()">upload me</button>
+         <!-- <input type = "file" file-model = "myFile"/> -->
+         <button ng-click = "uploadFile()">upload local image</button>
       </div>
    </div>
