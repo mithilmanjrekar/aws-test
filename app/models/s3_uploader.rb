@@ -3,7 +3,7 @@ class S3Uploader
   def self.create_new_resource
 
      # Create an instance of the Aws::S3::Resource class
-	 return Aws::S3::Resource.new(credentials: Aws::Credentials.new('AKIAIYC7G6YDQGBOTVMA', 'H+9Cl8EIcnkt96jGzmXk+gMXGKrNFpOGY/zP2YrI'),region: 'us-east-1')
+	 return Aws::S3::Resource.new(credentials: Aws::Credentials.new(),region: 'us-east-1')
   
   end	
 

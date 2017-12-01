@@ -5,6 +5,7 @@ class VisitorsController < ApplicationController
 
     uploaded_image = params[:file]
     s3_image_url  = get_s3_image_url(uploaded_image)
+    binding.pry
     #respond with the iamge url 
     render json: s3_image_url
 
