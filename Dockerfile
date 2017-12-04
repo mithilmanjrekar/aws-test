@@ -18,10 +18,8 @@ RUN gem install rails --version "$RAILS_VERSION"
 COPY . ./
 WORKDIR .
 
-# Throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1
 
-RUN gem install bundler && bundle install 
+RUN  gem install bundler && bundle update && bundle install 
 
 
 EXPOSE 3000

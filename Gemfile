@@ -16,6 +16,7 @@ gem 'aws-sdk-ec2', '~> 1'
 gem 'pry',         '~> 0.10.3'
 gem 'pry-byebug',  '~> 3.4.2'
 gem 'carrierwave-mimetype-fu'
+gem 'pg', '~> 0.18.4'
 group :development, :test do
   gem 'byebug', platform: :mri
 end
