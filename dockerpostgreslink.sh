@@ -1,28 +1,13 @@
-#!/bin/bash
-
-sudo -S <<< "password"
-
-apt-get update
-apt-get install -y apt-transport-https ca-certificates
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-
-echo 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' > /etc/apt/sources.list.d/docker.list
-
-apt-get update
-
-apt-get purge lxc-docker
-
-apt-cache policy docker-engine
-
-apt-get update
-
-apt-get upgrade -y
-
-apt-get install -y linux-image-extra-$(uname -r)
-
-apt-get install -y docker-engine
-
-service docker start
+#!/bin/sh
+# https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
+sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88 | grep docker@docker.com || exit 1
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install -y docker-ce
+sudo docker run --rm hello-world
+service docker retart
 
 docker ps
 
