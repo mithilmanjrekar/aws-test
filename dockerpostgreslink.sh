@@ -1,6 +1,6 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
-sudo apt-get update
+
 sudo apt-get install docker-engine
 sudo service docker start
 sudo docker run hello-world
