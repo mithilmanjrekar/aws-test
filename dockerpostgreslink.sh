@@ -2,19 +2,15 @@
 
 apt-get -y update
 
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | tee /etc/apt/sources.list.d/docker.list
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 apt-get -y update
 
-apt-cache policy docker-engine
+apt-cache policy docker-ce
 
-apt-get -y install -y docker-engine
-
-systemctl status docker
-
-systemctl start docker
+apt-get install -y docker-ce
 
 docker ps
 
