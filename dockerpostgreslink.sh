@@ -2,11 +2,11 @@
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
 
 
-sudo apt-get install docker-ee
+apt-get install docker-ee
 
 apt-cache madison docker-ee
 
-sudo docker run hello-world
+docker run hello-world
 
 docker ps
 
