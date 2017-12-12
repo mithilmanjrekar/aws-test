@@ -1,7 +1,6 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
 
-
 apt-get install docker-ee
 
 apt-cache madison docker-ee
@@ -12,11 +11,11 @@ docker ps
 
 echo "Create a docker postgres image .........."
 
-docker build -t postgres_image .
+docker build -t postgres
 
 echo "Run the docker postgres image .........."
 
-docker run --rm -P --name postgres postgres_image
+docker run --rm  postgres
 
 echo "Docker building the rails app form the Dockerfile .........."
 
