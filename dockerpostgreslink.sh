@@ -1,12 +1,10 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
-sudo usermod -a -G docker $USER
+wget -qO- https://get.docker.com/ | sh
 
-sudo reboot
+sudo usermod -aG docker $(mithildu)
 
-service docker restart
-
-su ${USER}
+su ${mithildu}
 
 docker run hello-world
 
