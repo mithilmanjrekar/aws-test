@@ -1,11 +1,18 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
+sudo /etc/init.d/docker status
 
-sudo usermod -a -G docker $USER
+sudo groupadd docker
 
-apt-get install docker-ee
+sudo usermod -aG docker $USER
 
-apt-cache madison docker-ee
+sudo service docker restart
+
+su ${USER}
+
+# apt-get install docker-ee
+
+# apt-cache madison docker-ee
 
 docker run hello-world
 
