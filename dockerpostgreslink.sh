@@ -1,6 +1,8 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
 
+sudo usermod -a -G docker $USER
+
 apt-get install docker-ee
 
 apt-cache madison docker-ee
