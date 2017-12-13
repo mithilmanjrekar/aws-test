@@ -10,12 +10,6 @@ sudo service docker restart
 
 su ${USER}
 
-# apt-get install docker-ee
-
-# apt-cache madison docker-ee
-
-#testing jenkins build on commit
-
 docker run hello-world
 
 docker ps
