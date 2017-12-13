@@ -9,24 +9,20 @@ pipeline {
 
                    echo 'Building..'
 
-                   checkout scm
+                      checkout scm
 
-                    docker.image('ruby:2.3.1').inside {
+                   
 
                       stage("Install Bundler") {
-                        sh "gem install bundler --no-rdoc --no-ri"
+                        sh "docker ps"
                       }
 
                       stage("Use Bundler to install dependencies") {
-                        sh "bundle install"
+                        sh "docker ps"
                       }
 
                       stage("Build package") {
-                        sh "bundle exec rake build:deb"
-                      }
-
-                      stage("Archive package") {
-                        archive (includes: 'pkg/*.deb')
+                        sh "docker ps"
                       }
 
                    }
