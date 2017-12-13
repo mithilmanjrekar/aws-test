@@ -7,29 +7,26 @@ pipeline {
 
             steps {
 
-                   echo 'Building..'
+                echo 'Building..'
 
-                      checkout scm
+                checkout scm
 
-                   
+                stage("Install Bundler") {
+                    sh "docker ps"
+                }
 
-                      stage("Install Bundler") {
-                        sh "docker ps"
-                      }
+                stage("Use Bundler to install dependencies") {
+                    sh "docker ps"
+                }
 
-                      stage("Use Bundler to install dependencies") {
-                        sh "docker ps"
-                      }
-
-                      stage("Build package") {
-                        sh "docker ps"
-                      }
-
-                   }
+                stage("Build package") {
+                    sh "docker ps"
+                }
 
             }
 
         }
+
 
         stage('Test') {
 
