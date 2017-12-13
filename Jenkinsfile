@@ -5,6 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                app = docker.build("potgres")
+                app = docker.build("ruby")
             }
         }
         stage('Test') {
