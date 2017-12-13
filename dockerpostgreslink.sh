@@ -14,33 +14,33 @@ su ${USER}
 
 # apt-cache madison docker-ee
 
-docker run hello-world
+sudo docker run hello-world
 
-docker ps
+sudo docker ps
 
 echo "Create a docker postgres image .........."
 
-docker build -t postgres
+sudo docker build -t postgres
 
 echo "Run the docker postgres image .........."
 
-docker run --rm  postgres
+sudo docker run --rm  postgres
 
 echo "Docker building the rails app form the Dockerfile .........."
 
-docker build -t rails-app .
+sudo docker build -t rails-app .
 
 echo "Docker running the rails app container created form the Dockerfile .........."
 
-docker run  --rm -d --name rails-connect-to-potgres --link postgres:postgres -p 3000:3000 rails-app
+sudo docker run  --rm -d --name rails-connect-to-potgres --link postgres:postgres -p 3000:3000 rails-app
 
 echo "Docker running the migrations on postgres .........."
 
-docker exec rails-connect-to-potgres bundle exec rake db:create
-docker exec rails-connect-to-potgres bundle exec rake db:migrate
+sudo docker exec rails-connect-to-potgres bundle exec rake db:create
+sudo docker exec rails-connect-to-potgres bundle exec rake db:migrate
 
 echo "Running the docker test cases .........."
 
-docker exec rails-connect-to-potgres rspec spec/models/user_spec.rb 
+sudo docker exec rails-connect-to-potgres rspec spec/models/user_spec.rb 
 
 echo "Docker ends testing here .........."
