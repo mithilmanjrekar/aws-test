@@ -12,9 +12,11 @@ pipeline {
         stage('Build') {
             steps {
                 
-
                 sh 'gem install bundler'
+                sh 'gem install uglifier'
+                sh 'gem install rspec'
                 sh 'bundle update'
+                sh 'bundle install'
             }
         }
         stage('Test') {
