@@ -1,9 +1,20 @@
 pipeline {
     agent {
-        docker {
-            image 'ruby:2.3.1'
-            args '-p 3000:3000 -p 5000:5000' 
-        }
+            
+        checkout scm
+
+        def environment  = docker.build 'cloudbees-node'
+
+        environment.inside {
+            stage "Checkout and build deps"
+                sh "npm install"
+
+            stage "Validate types"
+                sh "./node_modules/.bin/flow"
+
+            stage "Test and validate"
+                sh "npm install gulp-cli && ./node_modules/.bin/gulp"
+                junit 'reports/**/*.xml'
     }
     environment {
         CI = 'true'
@@ -11,12 +22,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'bundle install'
+                sh 'echo "yo"'
             }
         }
         stage('Test') {
             steps {
-                sh 'rspec spec/models/user_spec'
+                sh 'echo "yo"'sh 'rspec spec/models/user_spec'
             }
         }
     }
