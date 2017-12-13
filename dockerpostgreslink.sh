@@ -1,12 +1,12 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
-sudo /etc/init.d/docker status
+/etc/init.d/docker status
 
-sudo groupadd docker
+groupadd docker
 
-sudo usermod -aG docker $USER
+usermod -aG docker $USER
 
-sudo service docker restart
+service docker restart
 
 su ${USER}
 
