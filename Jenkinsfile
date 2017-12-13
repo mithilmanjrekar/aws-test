@@ -11,6 +11,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                sh 'gem install bundler'
                 sh 'bundle update'
             }
         }
