@@ -27,27 +27,27 @@ docker-machine ls
 echo "======> Initializing first swarm manager ..."
 docker-machine ssh managernode1 "docker swarm init --listen-addr $(docker-machine ip managernode1) --advertise-addr $(docker-machine ip managernode1)"
 
-# get manager and worker tokens(join tokens)
-export manager_token=`docker-machine ssh managernode1 "docker swarm join-token manager -q"`
-export worker_token=`docker-machine ssh managernode1 "docker swarm join-token worker -q"`
+	# get manager and worker tokens(join tokens)
+	export manager_token=`docker-machine ssh managernode1 "docker swarm join-token manager -q"`
+	export worker_token=`docker-machine ssh managernode1 "docker swarm join-token worker -q"`
 
-echo "manager_token: $manager_token"
-echo "worker_token: $worker_token"
+	echo "manager_token: $manager_token"
+	echo "worker_token: $worker_token"
 
 # show members of swarm
 docker-machine ssh managernode1 "docker node ls"
 
-# workers join swarm params
-#  --listen-addr $(docker-machine ip workernode$node) \
-# --advertise-addr $(docker-machine ip workernode$node) \
-for node in $(seq 1 $workers);
-do
-	echo "======> workernode$node joining swarm as worker ..."
-	docker-machine ssh workernode$node \
-	"docker swarm join \
-	--token $worker_token \
-	$(docker-machine ip managernode1):2377"
-done
+	# workers join swarm params
+	#  --listen-addr $(docker-machine ip workernode$node) \
+	# --advertise-addr $(docker-machine ip workernode$node) \
+	for node in $(seq 1 $workers);
+	do
+		echo "======> workernode$node joining swarm as worker ..."
+		docker-machine ssh workernode$node \
+		"docker swarm join \
+		--token $worker_token \
+		$(docker-machine ip managernode1):2377"
+	done
 
 # show members of swarm
 docker-machine ssh managernode1 "docker node ls"
