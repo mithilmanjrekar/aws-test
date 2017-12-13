@@ -1,10 +1,5 @@
 #!/bin/sh
 # https://docs.docker.com/engine/installation/linux/ubuntu/#install-using-the-repository
-wget -qO- https://get.docker.com/ | sh
-
-sudo usermod -aG docker $(mithildu)
-
-su ${mithildu}
 
 docker run hello-world
 
