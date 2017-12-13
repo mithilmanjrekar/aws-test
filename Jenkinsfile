@@ -11,11 +11,7 @@ pipeline {
 
                     checkout scm
 
-                    checkout scm
-                    
-                    sh "docker build --rm -t rails-app ./"
-
-                    docker.image('rails-app').inside {
+                    docker.image('ruby:2.3.1').inside {
 
                         stage("Install Bundler") {
                             sh "gem install bundler --no-rdoc --no-ri"
