@@ -1,13 +1,23 @@
-node('docker') {
-     docker.image('postgres').withRun { container ->
-         docker.image('rtyler/rvm:2.3.0').inside("--link=${container.id}:postgres") { 
-            stage 'Install Gems'
-             rvm "bundle install"
- 
-             stage 'Invoke Rake'
-             withEnv(['DATABASE_URL=postgres://postgres@postgres:5432/']) { 
-                rvm "bundle exec rake"
-              }
+pipeline {
+    agent {
+        docker {
+            image 'ruby:2.3.1'
+            args '--name rails-app -p 3000:3000 ' 
+        }
+    }
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'bundle install'
             }
-     }
+        }
+        stage('Test') {
+            steps {
+                sh 'docker ps'
+            }
+        }
+    }
 }
