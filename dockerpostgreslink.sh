@@ -14,6 +14,8 @@ su ${USER}
 
 # apt-cache madison docker-ee
 
+#testing jenkins build on commit
+
 docker run hello-world
 
 docker ps
