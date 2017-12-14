@@ -1,6 +1,6 @@
   env.DOCKERHUB_USERNAME = 'MithilsSwarmCiCd'
 
-  node('ruby'){
+  node('dev-docker-build'){
 
     checkout scm
     stage("Integration Test") {
