@@ -2,7 +2,9 @@ pipeline {
     agent { docker 'ruby' }
     stages {
         stage('Integration Test') {
-            steps {        
+            steps {
+                checkout scm
+
                 //Build the rails app from the Dockerfile 
                 sh "docker build -t rails-app ."
                 //Run postgres container
