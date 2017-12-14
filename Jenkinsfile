@@ -1,28 +1,43 @@
-pipeline {
-    agent {
-        docker {
-            image 'ruby:2.3.1'
-            args '--name rails-app -p 3000:3000 ' 
-        }
+  env.DOCKERHUB_USERNAME = 'MithilsSwarmCiCd'
+
+  node("docker-test") {
+  
+    checkout scm
+
+    stage("Integration Test") {
+
+      try {
+        //Build the rails app from the Dockerfile 
+        sh "docker build -t rails-app ."
+        //Run postgres container
+        sh "docker run --rm  -d --name postgres postgres"
+        //Run rails container linked with postgres
+        sh "docker run  --rm -d --name rails-connect-to-postgres --link postgres:postgres -p 3000:3000 rails-app"
+      }
+
+      catch(e) {
+        error "Integration Test failed"
+      }
+
+      finally {
+        sh "docker rm -f cd-demo || true"
+        sh "docker ps -aq | xargs docker rm || true"
+        sh "docker images -aq -f dangling=true | xargs docker rmi || true"
+      }
+
     }
-    environment {
-        CI = 'true'
+
+
+    stage("Build") {
+      sh "docker build -t ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER} ."
     }
-    stages {
-        stage('Build') {
-            steps {
-                
-                sh 'gem install bundler'
-                sh 'gem install uglifier'
-                sh 'gem install rspec'
-                sh 'bundle update'
-                sh 'bundle install'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'rspec spec/models'
-            }
-        }
+
+    stage("Publish") {
+      withDockerRegistry([credentialsId: 'DockerHub']) {
+        sh "docker push ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER}"
+      }
     }
-}
+
+  }
+
+ 
